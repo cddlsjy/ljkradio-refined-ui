@@ -7,20 +7,12 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
-        // 阿里云镜像（用于 ijkplayer 依赖）
-        maven {
-            url 'https://maven.aliyun.com/repository/jcenter'
-        }
-        // 国际官方源
+        maven { url 'https://jitpack.io' }
         google()
         mavenCentral()
-        maven {
-            url 'https://jitpack.io'
-        }
     }
 }
 
-rootProject.name = "IjkRadioPlayer"
 include ':app'
