@@ -315,11 +315,6 @@ class MainActivity : AppCompatActivity() {
         if (currentStation?.id != station.id) {
             playerManager.playStation(station)
         }
-
-        // 更新全屏播放器的电台信息
-        if (isFullscreenMode) {
-            fullscreenFragment?.updateStationInfo(station)
-        }
     }
 
     /**
@@ -612,6 +607,11 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * 解析M3U文件
+     * 支持格式：
+     * - #EXTINF:-1,电台名称
+     * - #EXTIMG:图标URL
+     * - #RADIOBROWSERUUID:UUID
+     * - 电台流URL
      */
     private fun parseM3UFile(uri: Uri) {
         try {
@@ -737,6 +737,11 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * 写入M3U内容到文件
+     * 导出格式：
+     * - #EXTINF:-1,电台名称
+     * - #EXTIMG:图标URL
+     * - #RADIOBROWSERUUID:UUID
+     * - 电台流URL
      */
     private fun exportM3UFile(uri: Uri) {
         try {

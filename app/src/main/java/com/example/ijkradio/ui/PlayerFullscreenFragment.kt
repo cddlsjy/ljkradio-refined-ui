@@ -14,6 +14,7 @@ import com.example.ijkradio.MainActivity
 import com.example.ijkradio.R
 import com.example.ijkradio.data.Station
 import com.example.ijkradio.player.IPlayerManager
+import com.bumptech.glide.Glide
 
 class PlayerFullscreenFragment : Fragment() {
 
@@ -97,30 +98,27 @@ class PlayerFullscreenFragment : Fragment() {
         if (station != null) {
             textViewStationName.text = station.name
             textViewStationName.visibility = View.VISIBLE
-            if (station.logoUrl.isNotEmpty()) {
-                loadStationLogo(station.logoUrl)
-            } else {
-                stationIcon.setImageResource(R.drawable.ic_default_station_image)
-            }
+            loadStationLogo(station)
         } else {
             textViewStationName.visibility = View.GONE
-            stationIcon.setImageResource(R.drawable.ic_default_station_image)
+            stationIcon.setImageResource(R.drawable.ic_default_station_image_180dp)
         }
     }
 
-    private fun loadStationLogo(logoUrl: String) {
-        if (logoUrl.startsWith("http://") || logoUrl.startsWith("https://")) {
-            Handler(Looper.getMainLooper()).post {
-                try {
-                    val url = java.net.URL(logoUrl)
-                    val bitmap = android.graphics.BitmapFactory.decodeStream(url.openStream())
-                    if (bitmap != null) {
-                        stationIcon.setImageBitmap(bitmap)
-                    }
-                } catch (e: Exception) {
-                    stationIcon.setImageResource(R.drawable.ic_default_station_image)
-                }
+    private fun loadStationLogo(station: Station) {
+        if (!station.logoUrl.isNullOrEmpty()) {
+            try {
+                Glide.with(requireContext())
+                    .load(station.logoUrl)
+                    .placeholder(R.drawable.ic_default_station_image_180dp)
+                    .error(R.drawable.ic_default_station_image_180dp)
+                    .into(stationIcon)
+            } catch (e: Exception) {
+                stationIcon.setImageResource(R.drawable.ic_default_station_image_180dp)
             }
+        } else {
+            Glide.with(requireContext()).clear(stationIcon)
+            stationIcon.setImageResource(R.drawable.ic_default_station_image_180dp)
         }
     }
 
