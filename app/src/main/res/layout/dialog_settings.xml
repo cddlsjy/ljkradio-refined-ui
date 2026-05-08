@@ -142,29 +142,42 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="12dp">
 
             <Button
                 android:id="@+id/button_import_m3u"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="4dp"
                 android:text="@string/import_m3u_select_file"
                 android:textAllCaps="false"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textColor="@android:color/white"
                 android:backgroundTint="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/button_clear_stations"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:text="清除电台"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#E53935" />
 
             <Button
                 android:id="@+id/button_export_m3u"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="6dp"
+                android:layout_marginStart="4dp"
                 android:text="@string/export_m3u_title"
                 android:textAllCaps="false"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textColor="@android:color/white"
                 android:backgroundTint="@color/colorPrimary" />
 

@@ -463,7 +463,7 @@ class MainActivity : AppCompatActivity() {
         autoFullscreenSwitch.isChecked = stationStorage.getAutoFullscreenOnStart()
 
         // 初始化全屏显示模式Spinner
-        val displayModes = arrayOf("原显示方案", "竖屏居中", "横屏分栏")
+        val displayModes = arrayOf("原显示方案", "竖屏居中", "横屏分栏", "白色背景")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, displayModes)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         displayModeSpinner.adapter = adapter

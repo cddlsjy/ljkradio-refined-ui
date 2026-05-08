@@ -55,6 +55,7 @@ class PlayerFullscreenFragment : Fragment() {
         val layoutRes = when (displayMode) {
             1 -> R.layout.layout_player_fullscreen_portrait
             2 -> R.layout.layout_player_fullscreen_landscape
+            3 -> R.layout.layout_player_fullscreen_light
             else -> R.layout.layout_player_fullscreen
         }
         return inflater.inflate(layoutRes, container, false)
