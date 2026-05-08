@@ -444,7 +444,7 @@ class MainActivity : AppCompatActivity() {
         val radioSoftware = dialogView.findViewById<RadioButton>(R.id.radio_software)
         val autoPlayLastStationSwitch = dialogView.findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.auto_play_last_station_switch)
         val autoFullscreenSwitch = dialogView.findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.auto_fullscreen_switch)
-        val fullscreenDisplayModeGroup = dialogView.findViewById<RadioGroup>(R.id.fullscreen_display_mode_group)
+        val displayModeSpinner = dialogView.findViewById<Spinner>(R.id.fullscreen_display_mode_spinner)
         val importM3uButton = dialogView.findViewById<Button>(R.id.button_import_m3u)
         val exportM3uButton = dialogView.findViewById<Button>(R.id.button_export_m3u)
 
@@ -462,13 +462,12 @@ class MainActivity : AppCompatActivity() {
         // 初始化自动全屏播放开关
         autoFullscreenSwitch.isChecked = stationStorage.getAutoFullscreenOnStart()
 
-        // 初始化全屏显示模式
-        val currentDisplayMode = stationStorage.getFullscreenDisplayMode()
-        when (currentDisplayMode) {
-            1 -> fullscreenDisplayModeGroup.check(R.id.radio_mode_portrait)
-            2 -> fullscreenDisplayModeGroup.check(R.id.radio_mode_landscape)
-            else -> fullscreenDisplayModeGroup.check(R.id.radio_mode_original)
-        }
+        // 初始化全屏显示模式Spinner
+        val displayModes = arrayOf("原显示方案", "竖屏居中", "横屏分栏")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, displayModes)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        displayModeSpinner.adapter = adapter
+        displayModeSpinner.setSelection(stationStorage.getFullscreenDisplayMode())
 
         // 音量滑块监听器
         volumeSlider.addOnChangeListener { slider: Slider, value: Float, fromUser: Boolean ->
@@ -514,11 +513,7 @@ class MainActivity : AppCompatActivity() {
                 playerManager.setHardwareDecode(useHardwareDecode)
 
                 // 保存全屏显示模式
-                val selectedMode = when (fullscreenDisplayModeGroup.checkedRadioButtonId) {
-                    R.id.radio_mode_portrait -> 1
-                    R.id.radio_mode_landscape -> 2
-                    else -> 0
-                }
+                val selectedMode = displayModeSpinner.selectedItemPosition
                 stationStorage.saveFullscreenDisplayMode(selectedMode)
             }
             .setNegativeButton("取消", null)
