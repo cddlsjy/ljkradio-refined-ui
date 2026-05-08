@@ -61,11 +61,19 @@ class StationStorage(private val context: Context) {
      */
     fun addStation(station: Station) {
         val stations = getStations().toMutableList()
-        // 检查是否已存在同名电台
         if (stations.none { it.name == station.name && it.url == station.url }) {
             stations.add(station)
             saveStations(stations)
         }
+    }
+
+    /**
+     * 导入电台列表（覆盖模式，替换原有自定义电台）
+     */
+    fun importStations(newStations: List<Station>) {
+        val defaultStations = getDefaultStations()
+        val mergedStations = defaultStations + newStations
+        saveStations(mergedStations)
     }
 
     /**

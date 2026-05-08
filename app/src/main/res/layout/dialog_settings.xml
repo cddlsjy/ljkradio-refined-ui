@@ -157,19 +157,6 @@
                 android:backgroundTint="@color/colorPrimary" />
 
             <Button
-                android:id="@+id/button_clear_stations"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
-                android:text="清除电台"
-                android:textAllCaps="false"
-                android:textSize="12sp"
-                android:textColor="@android:color/white"
-                android:backgroundTint="#E53935" />
-
-            <Button
                 android:id="@+id/button_export_m3u"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

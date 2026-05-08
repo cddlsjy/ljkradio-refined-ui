@@ -585,29 +585,13 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 if (stations.isNotEmpty()) {
-                    // 添加所有解析到的电台
-                    var addedCount = 0
-                    stations.forEach { station ->
-                        if (station.isValid()) {
-                            stationStorage.addStation(station)
-                            addedCount++
-                        }
-                    }
-
-                    if (addedCount > 0) {
-                        loadStations()
-                        Toast.makeText(
-                            this,
-                            getString(R.string.import_m3u_success, addedCount),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    } else {
-                        Toast.makeText(
-                            this,
-                            getString(R.string.import_m3u_no_valid),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    stationStorage.importStations(stations)
+                    loadStations()
+                    Toast.makeText(
+                        this,
+                        getString(R.string.import_m3u_success, stations.size),
+                        Toast.LENGTH_LONG
+                    ).show()
                 } else {
                     Toast.makeText(
                         this,
