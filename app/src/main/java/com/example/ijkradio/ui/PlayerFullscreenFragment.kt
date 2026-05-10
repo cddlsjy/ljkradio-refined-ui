@@ -164,10 +164,6 @@ class PlayerFullscreenFragment : Fragment() {
         applyBackgroundColor()
     }
 
-    private fun applyBackgroundColor() {
-        // 背景颜色将在 onCreateView 时根据设置选择不同的布局
-    }
-
     fun setPlayerManager(manager: IPlayerManager) {
         this.playerManager = manager
     }
