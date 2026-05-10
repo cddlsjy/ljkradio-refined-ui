@@ -89,7 +89,7 @@ class PlayerFullscreenFragment : Fragment() {
             stationAdapter = StationAdapter(
                 onStationClick = { station ->
                     (activity as? MainActivity)?.let { activity ->
-                        activity.onStationClicked(station)
+                        activity.handleStationClick(station)
                     }
                 },
                 onDeleteClick = { }
@@ -178,11 +178,10 @@ class PlayerFullscreenFragment : Fragment() {
             is PlaybackState.Buffering -> {
                 textViewGeneralInfo.text = getString(R.string.buffering)
                 textViewStationName.visibility = View.VISIBLE
-                textViewStationName.text = state.stationName
+                textViewStationName.text = currentStation?.name ?: ""
                 buttonPlay.setImageResource(R.drawable.ic_pause_white)
                 isPlaying = true
-                val playingStation = stationsList?.find { it.name == state.stationName }
-                stationAdapter?.setPlayingStation(playingStation)
+                stationAdapter?.setPlayingStation(currentStation)
             }
             is PlaybackState.Playing -> {
                 textViewStationName.visibility = View.VISIBLE

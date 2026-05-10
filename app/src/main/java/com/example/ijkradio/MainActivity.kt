@@ -261,6 +261,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // 公开方法供全屏播放器Fragment调用
+    fun handleStationClick(station: Station) {
+        onStationClicked(station)
+    }
+
     /**
      * 切换播放/暂停
      */
