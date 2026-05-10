@@ -93,6 +93,8 @@ class PlayerFullscreenFragment : Fragment() {
                     .build()
             }
         }
+        // 形状改变后重新加载图片
+        currentStation?.let { loadStationLogo(it) }
     }
 
     private fun applyBackgroundColor() {
@@ -164,10 +166,13 @@ class PlayerFullscreenFragment : Fragment() {
         }
 
         isViewReady = true
+        
+        // 先设置形状，再加载图片
+        applyLogoShape()
+        
         pendingStation?.let { applyStationInfo(it) }
         pendingStation = null
         
-        applyLogoShape()
         applyBackgroundColor()
     }
 
