@@ -36,6 +36,7 @@ class PlayerFullscreenFragment : Fragment() {
     private var isPlaying = false
     private var displayMode: Int = 0
     private var logoShape: Int = 0
+    private var backgroundColor: Int = 0
 
     private var isViewReady = false
     private var pendingStation: Station? = null
@@ -69,6 +70,13 @@ class PlayerFullscreenFragment : Fragment() {
         }
     }
 
+    fun setBackgroundColor(color: Int) {
+        this.backgroundColor = color
+        if (isViewReady) {
+            applyBackgroundColor()
+        }
+    }
+
     private fun applyLogoShape() {
         if (!::stationIcon.isInitialized) return
         when (logoShape) {
@@ -87,16 +95,21 @@ class PlayerFullscreenFragment : Fragment() {
         }
     }
 
+    private fun applyBackgroundColor() {
+        // 背景颜色控制将在布局加载时处理
+        // 此方法可以用于动态调整其他UI元素
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val layoutRes = when (displayMode) {
-            1 -> R.layout.layout_player_fullscreen_portrait
-            2 -> R.layout.layout_player_fullscreen_landscape
-            3 -> R.layout.layout_player_fullscreen_light
-            else -> R.layout.layout_player_fullscreen
+        // 根据背景颜色选择布局
+        val layoutRes = if (backgroundColor == 1) {
+            R.layout.layout_player_fullscreen_light
+        } else {
+            R.layout.layout_player_fullscreen
         }
         return inflater.inflate(layoutRes, container, false)
     }
@@ -148,6 +161,11 @@ class PlayerFullscreenFragment : Fragment() {
         pendingStation = null
         
         applyLogoShape()
+        applyBackgroundColor()
+    }
+
+    private fun applyBackgroundColor() {
+        // 背景颜色将在 onCreateView 时根据设置选择不同的布局
     }
 
     fun setPlayerManager(manager: IPlayerManager) {

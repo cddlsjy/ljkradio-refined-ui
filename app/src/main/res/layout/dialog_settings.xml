@@ -125,12 +125,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="显示方案"
+                android:text="Logo形状"
                 android:textSize="14sp"
                 android:textColor="@color/text_secondary" />
 
             <Spinner
-                android:id="@+id/fullscreen_display_mode_spinner"
+                android:id="@+id/fullscreen_logo_shape_spinner"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary" />
@@ -148,12 +148,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Logo形状"
+                android:text="背景颜色"
                 android:textSize="14sp"
                 android:textColor="@color/text_secondary" />
 
             <Spinner
-                android:id="@+id/fullscreen_logo_shape_spinner"
+                android:id="@+id/fullscreen_background_color_spinner"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary" />

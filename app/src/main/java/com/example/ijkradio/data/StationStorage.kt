@@ -23,6 +23,7 @@ class StationStorage(private val context: Context) {
         private const val KEY_AUTO_FULLSCREEN_ON_START = "auto_fullscreen_on_start"
         private const val KEY_FULLSCREEN_DISPLAY_MODE = "fullscreen_display_mode"
         private const val KEY_FULLSCREEN_LOGO_SHAPE = "fullscreen_logo_shape"
+        private const val KEY_FULLSCREEN_BACKGROUND_COLOR = "fullscreen_background_color"
     }
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -335,5 +336,21 @@ class StationStorage(private val context: Context) {
      */
     fun getFullscreenLogoShape(): Int {
         return prefs.getInt(KEY_FULLSCREEN_LOGO_SHAPE, 0)
+    }
+
+    /**
+     * 保存全屏背景颜色
+     * 0 - 深色（横屏分栏的颜色）
+     * 1 - 白色背景
+     */
+    fun saveFullscreenBackgroundColor(color: Int) {
+        prefs.edit().putInt(KEY_FULLSCREEN_BACKGROUND_COLOR, color).apply()
+    }
+
+    /**
+     * 获取全屏背景颜色（默认 0 - 深色）
+     */
+    fun getFullscreenBackgroundColor(): Int {
+        return prefs.getInt(KEY_FULLSCREEN_BACKGROUND_COLOR, 0)
     }
 }

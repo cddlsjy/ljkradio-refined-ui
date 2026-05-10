@@ -449,8 +449,8 @@ class MainActivity : AppCompatActivity() {
         val radioSoftware = dialogView.findViewById<RadioButton>(R.id.radio_software)
         val autoPlayLastStationSwitch = dialogView.findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.auto_play_last_station_switch)
         val autoFullscreenSwitch = dialogView.findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.auto_fullscreen_switch)
-        val displayModeSpinner = dialogView.findViewById<Spinner>(R.id.fullscreen_display_mode_spinner)
         val logoShapeSpinner = dialogView.findViewById<Spinner>(R.id.fullscreen_logo_shape_spinner)
+        val backgroundColorSpinner = dialogView.findViewById<Spinner>(R.id.fullscreen_background_color_spinner)
         val importM3uButton = dialogView.findViewById<Button>(R.id.button_import_m3u)
         val exportM3uButton = dialogView.findViewById<Button>(R.id.button_export_m3u)
 
@@ -468,19 +468,19 @@ class MainActivity : AppCompatActivity() {
         // 初始化自动全屏播放开关
         autoFullscreenSwitch.isChecked = stationStorage.getAutoFullscreenOnStart()
 
-        // 初始化全屏显示模式Spinner
-        val displayModes = arrayOf("原显示方案", "竖屏居中", "横屏分栏", "白色背景")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, displayModes)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        displayModeSpinner.adapter = adapter
-        displayModeSpinner.setSelection(stationStorage.getFullscreenDisplayMode())
-
         // 初始化全屏Logo形状Spinner
         val logoShapes = arrayOf("圆形", "方型")
         val logoShapeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, logoShapes)
         logoShapeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         logoShapeSpinner.adapter = logoShapeAdapter
         logoShapeSpinner.setSelection(stationStorage.getFullscreenLogoShape())
+
+        // 初始化全屏背景颜色Spinner
+        val backgroundColors = arrayOf("深色", "白色")
+        val backgroundColorAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, backgroundColors)
+        backgroundColorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        backgroundColorSpinner.adapter = backgroundColorAdapter
+        backgroundColorSpinner.setSelection(stationStorage.getFullscreenBackgroundColor())
 
         // 音量滑块监听器
         volumeSlider.addOnChangeListener { slider: Slider, value: Float, fromUser: Boolean ->
@@ -525,13 +525,13 @@ class MainActivity : AppCompatActivity() {
                 stationStorage.saveUseHardwareDecode(useHardwareDecode)
                 playerManager.setHardwareDecode(useHardwareDecode)
 
-                // 保存全屏显示模式
-                val selectedMode = displayModeSpinner.selectedItemPosition
-                stationStorage.saveFullscreenDisplayMode(selectedMode)
-
                 // 保存全屏Logo形状
                 val selectedLogoShape = logoShapeSpinner.selectedItemPosition
                 stationStorage.saveFullscreenLogoShape(selectedLogoShape)
+
+                // 保存全屏背景颜色
+                val selectedBackgroundColor = backgroundColorSpinner.selectedItemPosition
+                stationStorage.saveFullscreenBackgroundColor(selectedBackgroundColor)
             }
             .setNegativeButton("取消", null)
             .create()
@@ -876,6 +876,7 @@ class MainActivity : AppCompatActivity() {
 
         val displayMode = stationStorage.getFullscreenDisplayMode()
         val logoShape = stationStorage.getFullscreenLogoShape()
+        val backgroundColor = stationStorage.getFullscreenBackgroundColor()
         fullscreenFragment = PlayerFullscreenFragment.newInstance().apply {
             setDisplayMode(displayMode)
             setPlayerFullscreenListener(object : PlayerFullscreenFragment.PlayerFullscreenListener {
@@ -886,6 +887,7 @@ class MainActivity : AppCompatActivity() {
             setPlayerManager(playerManager)
             setStationsList(stations)
             setLogoShape(logoShape)
+            setBackgroundColor(backgroundColor)
         }
 
         supportFragmentManager.beginTransaction()
