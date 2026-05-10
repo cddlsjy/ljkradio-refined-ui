@@ -79,22 +79,15 @@ class PlayerFullscreenFragment : Fragment() {
 
     private fun applyLogoShape() {
         if (!::stationIcon.isInitialized) return
-        when (logoShape) {
-            0 -> { // 圆形
-                stationIcon.shapeAppearanceModel = ShapeAppearanceModel()
-                    .toBuilder()
-                    .setAllCorners(CornerFamily.ROUNDED, 1000f)
-                    .build()
-            }
-            1 -> { // 方型
-                stationIcon.shapeAppearanceModel = ShapeAppearanceModel()
-                    .toBuilder()
-                    .setAllCorners(CornerFamily.ROUNDED, 0f)
-                    .build()
-            }
+        // 只有设置为方型时才改变形状，圆形使用布局文件中的默认样式
+        if (logoShape == 1) { // 方型
+            stationIcon.shapeAppearanceModel = ShapeAppearanceModel()
+                .toBuilder()
+                .setAllCorners(CornerFamily.ROUNDED, 0f)
+                .build()
+            // 形状改变后重新加载图片
+            currentStation?.let { loadStationLogo(it) }
         }
-        // 形状改变后重新加载图片
-        currentStation?.let { loadStationLogo(it) }
     }
 
     private fun applyBackgroundColor() {
